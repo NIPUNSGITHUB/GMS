@@ -125,7 +125,7 @@
                     </tr>
                   </thead>
                   <tbody v-if="load_data == false">
-                    <tr v-for="todayRequest in todayRequests.slice(0,7)" :key="todayRequest.id">
+                    <tr v-for="(todayRequest,index) in todayRequests.slice(0,7)" :key="index">
                       <td>
                         <img
                           src="dist/img/logo-person.png"
@@ -181,7 +181,7 @@
                 <FullCalendar
                   defaultView="dayGridMonth"
                   :plugins="calendarPlugins"
-                  :events="event_list"
+                  :events="event_list"                  
                 />
               </div>
             </div>
@@ -210,8 +210,7 @@ export default {
     FullCalendar // make the <FullCalendar> tag available
   },
   mounted() {
-    this.pupulateInitialData();
-    this.map();
+    this.pupulateInitialData();   
     console.log("Component mounted.");
   },
   data() {
@@ -223,37 +222,11 @@ export default {
       thisMonth: null,
       thisYear: null,
       load_data: true,
-      todayRequests: [],
-      data: [
-        { l: "6.9065494", la: "79.8685325" },
-        { l: "6.0535", la: "80.221" },
-        { l: "9.6615", la: "80.0255" },
-        { l: "6.9497", la: "80.7891" },
-        { l: "8.5874", la: "81.2152" },
-        { l: "6.8404", la: "81.8368" },
-        { l: "7.5260", la: "80.7341" },
-        { l: "6.8259", la: "80.9982" }
-      ]
+      todayRequests: []
     };
   },
   methods: {
-     map() {
-      var map = L.map("map").setView([0, 0], 1);
-      L.tileLayer(
-        "https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=F3vOKEzauy5xxxUoX50X",
-        {
-          attribution:
-            '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a><a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-        }
-      ).addTo(map);
-
-      this.data.forEach(element => {
-        L.marker([element.l, element.la]).addTo(map);
-      });
-
-      // L.marker([6.9065494, 79.8685325]).addTo(map);
-      // L.marker([6.0535, 80.221]).addTo(map);
-    },
+   
     pupulateInitialData() {
       this.load_data = true;
       axios

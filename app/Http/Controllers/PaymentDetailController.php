@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PaymentDetails;
 use App\Payment;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use DB;
 
@@ -36,36 +37,39 @@ class PaymentDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //return 'success';
-        //return $request;
-        $result= false;
-        $result2 = false;
-
+    { 
+            $result= false;
+            $result2 = false; 
+             
         try {
-        
-        DB::beginTransaction();
             
-        // $Payment = Payment::where('customers_request_id',$request->req_id)->get();         
-        // $Payment->status_id = 7;
-        // $result =  $Payment->update();
+            DB::beginTransaction();
+                
+            $result = DB::update('update payments set status_id = 7 where customers_request_id = '.$request->req_id.' ');
+           
+            $payment_id = Payment::where('customers_request_id',$request->req_id)->select('id')->first();
+            
+            $PaymentDetails = new PaymentDetails();
+            $PaymentDetails->payment_id = $payment_id->id;
+            $PaymentDetails->acc_no = Hash::make($request->acc_no);
+            $PaymentDetails->f_name = $request->f_name;
+            $PaymentDetails->l_name = $request->l_name;
+            $PaymentDetails->cvv = $request->cvv;
+            $PaymentDetails->exp_year = $request->exp_year;
+            $PaymentDetails->exp_date = $request->exp_date;
+            $result2 = $PaymentDetails->save();
+          
+            DB::commit();  
 
+            if(($result2 == true) && ($result == 1))
+            {
+                return response('success',200);
+            }
+            else
+            {
+                return response('fail',401);
+            }
         
-        $result = DB::update('update payments set status_id = 7 where customers_request_id = '.$request->req_id.' ');
-        
-        $PaymentDetails = new PaymentDetails();
-        $PaymentDetails->payment_id = 1;
-        $PaymentDetails->acc_no = $request->acc_no;
-        $PaymentDetails->cvv = $request->cvv;
-        $PaymentDetails->exp_date = $request->exp_date;
-        $result2 = $PaymentDetails->save();
-    
-        if($result2 && $result)
-        return response('success',200);
-        else
-        return response('fail',401);
-
-        DB::commit();
         
         } catch (Exception $th) {
             

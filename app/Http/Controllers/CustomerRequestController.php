@@ -34,18 +34,43 @@ class CustomerRequestController extends Controller
         ->orderBy('customer_requests.id','DESC') 
         ->get();
 
-        $events = CustomerRequest::join('categories','categories.id','customer_requests.category_id')
-        ->join('vehicle_types','vehicle_types.id','customer_requests.vehicle_type_id')
-        ->whereBetween('request_date',[$monthStartDate,$monthEndDate]) 
-        ->orderBy('customer_requests.id','DESC') 
-        ->select(DB::raw('concat(customer_requests.address_1,customer_requests.address_2) as title'),'customer_requests.request_date as date' )
+        // $events = CustomerRequest::join('categories','categories.id','customer_requests.category_id')
+        // ->join('vehicle_types','vehicle_types.id','customer_requests.vehicle_type_id')
+        // ->whereBetween('request_date',[$monthStartDate,$monthEndDate]) 
+        // ->groupBy('customer_requests.request_date')
+        // //->orderBy('customer_requests.id','DESC')         
+        // ->select(DB::raw('concat(customer_requests.address_1,customer_requests.address_2) as title'),'customer_requests.request_date as date' )
+        // ->get();
+
+        $events = CustomerRequest::groupBy('request_date')
+        ->selectRaw('count(*) as title, request_date as date')
         ->get();
+
         $today = CustomerRequest::where('request_date',Carbon::now()->toDateString())->count();
         $thisWeek = CustomerRequest::whereBetween('request_date',array($weekStartDate,$weekEndDate))->count();
         $thisMonth = CustomerRequest::whereBetween('request_date',array($monthStartDate,$monthEndDate))->count();
         $thisYear = CustomerRequest::whereBetween('request_date',array($yearStartData,$yearEndData))->count();
         $CustomerRequest = array('todayRequest'=>$todayRequest ,'events'=>$events,'today'=>$today,'thisWeek'=>$thisWeek,'thisMonth'=>$thisMonth,'thisYear'=>$thisYear);
         return $CustomerRequest;
+    }
+
+    public function getMap()
+    {
+        $todayRequest = CustomerRequest::
+        where('customer_requests.status_id',7)
+        ->select('longitude as l','latitude as la')
+        ->get();
+
+        return $todayRequest;
+    }
+
+    public function getEvent()
+    {
+        $dateArray = [];
+            $collection = CustomerRequest::groupBy('request_date')
+                ->selectRaw('count(*) as title, request_date as date')
+                ->get();
+        return $collection;
     }
 
     /**

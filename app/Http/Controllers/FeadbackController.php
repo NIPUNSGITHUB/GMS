@@ -34,8 +34,24 @@ class FeadbackController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        
+       //DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle'])
+        
+       try {
+        
+        $feadback = new Feadback;
+        $feadback->user_id = $request->user_id;
+        $feadback->comment = $request->comment; 
+        $result = $feadback->save();
+        
+        if($result)        
+            return response("Success",200);
+
+       } catch (Exception $th) {
+          return $th;
+       }
+
     }
 
     /**

@@ -35,7 +35,8 @@ const routes = [
     { path: '/collector/group', component:require('./components/operation/collector_group/group_index.vue').default},
     { path: '/vehecle/type/payment/assign', component:require('./components/operation/payment/vehicle_type_payments.vue').default},
     { path: '/area/payment/assign', component:require('./components/operation/payment/area_payments.vue').default},
-    { path: '/map/view',component:require('./components/public_component/map.vue').default}
+    { path: '/map/view',component:require('./components/public_component/map.vue').default},
+    { path: '/payment/history',component:require('./components/operation/payment/payment_history.vue').default}
 
   ]
     

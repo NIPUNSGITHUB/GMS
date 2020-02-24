@@ -136,7 +136,7 @@ class RegisterController extends Controller
                         'password'=>'required|min:8'
                        ]);
                       
-                        $user = User::find($request->id);
+                        $User = User::find($request->id);
                         $User->name = $request->name;
                         $User->email = $request->email;
                         $User->user_type_id = $request->user_type_id;

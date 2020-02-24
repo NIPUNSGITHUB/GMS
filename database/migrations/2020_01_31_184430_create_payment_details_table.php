@@ -18,7 +18,10 @@ class CreatePaymentDetailsTable extends Migration
             $table->integer('payment_id');
             $table->string('acc_no');
             $table->string('cvv');
+            $table->string('exp_year');
             $table->string('exp_date');
+            $table->string('f_name');
+            $table->string('l_name');
             $table->timestamps();
         });
     }

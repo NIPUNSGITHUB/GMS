@@ -28,25 +28,32 @@
 <script>
 export default {
   mounted() {
+    this.getMapData();
     this.map();
+   
   },
   data() {
     return {
-      data: [
-        { l: "6.9065494", la: "79.8685325" },
-        { l: "6.0535", la: "80.221" },
-        { l: "9.6615", la: "80.0255" },
-        { l: "6.9497", la: "80.7891" },
-        { l: "8.5874", la: "81.2152" },
-        { l: "6.8404", la: "81.8368" },
-        { l: "7.5260", la: "80.7341" },
-        { l: "6.8259", la: "80.9982" }
-      ]
+     dataMap:[]
+      // mapData: [
+      //   { l: "6.9065494", la: "79.8685325" },
+      //   { l: "6.0535", la: "80.221" },
+      //   { l: "9.6615", la: "80.0255" },
+      //   { l: "6.9497", la: "80.7891" },
+      //   { l: "8.5874", la: "81.2152" },
+      //   { l: "6.8404", la: "81.8368" },
+      //   { l: "7.5260", la: "80.7341" },
+      //   { l: "6.8259", la: "80.9982" }
+      // ]
     };
   },
+  mounted() {
+    this.getMapData();
+     
+  },
   methods: {
-    map() {
-      var map = L.map("map").setView([0, 0], 1);
+    map(mapd) {
+      var map = L.map("map").setView([8, 80], 8);
       L.tileLayer(
         "https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=F3vOKEzauy5xxxUoX50X",
         {
@@ -55,12 +62,26 @@ export default {
         }
       ).addTo(map);
 
-      this.data.forEach(element => {
+      this.dataMap.forEach(element => {
+        console.log(element.l);
         L.marker([element.l, element.la]).addTo(map);
       });
+      // this.dataMap.forEach(element => {
+      //   console.log(element.longitude);
+      //   L.marker([element.longitude, element.latitude]).addTo(map);
+      // });
+ 
+    },
+    getMapData()
+    {
+       axios.get('/get/map/request').then(res=>{         
+           this.dataMap = res.data;
+           console.log(res.data);
+           this.map();
+       }).catch(err=>{
 
-      // L.marker([6.9065494, 79.8685325]).addTo(map);
-      // L.marker([6.0535, 80.221]).addTo(map);
+       })
+
     }
   }
 };

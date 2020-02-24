@@ -79,7 +79,7 @@
                   <label>NIC</label>
                   &nbsp;
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     name
                     id
@@ -549,7 +549,7 @@ export default {
       this.teleNo = Employee.telephone_no;
       this.selectedEmployeeType.id = Employee.employee_type_id;
       this.selectedEmployeeStatus.id = Employee.status_id;
-      console.log(Employee);
+      console.log(this.nic);
     },
 
     updateEmployee() {

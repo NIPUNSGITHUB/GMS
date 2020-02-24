@@ -57,6 +57,13 @@
                   </router-link>
                 </li>
                 <li class="nav-item">
+                  <router-link to="/payment/history" class="nav-link">
+                    <i class="nav-icon fas fa-wave-square"></i>
+                    <p>Payment History</p>
+                  </router-link>
+                </li>
+                
+                <li class="nav-item">
                   <router-link to="/map/view" class="nav-link">
                     <i class="nav-icon fas fa-map"></i>
                     <p>Map View</p>

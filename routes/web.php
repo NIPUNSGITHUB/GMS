@@ -80,6 +80,13 @@ Route::group(['middleware' => 'verified'], function () {
 
      //Dashboard
      Route::get('/dashboard/data','CustomerRequestController@dashboardData');
+
+     //Map
+     Route::get('/get/map/request','CustomerRequestController@getMap');
+
+    //Payment History
+    Route::post('/get/payment/details','PaymentController@getPaymentDetails');
+
     
     
  
@@ -118,4 +125,8 @@ Route::post('/payment/approve','PaymentDetailController@store');
 
 //Driver Login
 Route::post('/driver/login','EmployeeController@driverLogin');
+
+Route::get('/get/event/count',"CustomerRequestController@getEvent");
+
+Route::post('/post/feedback','FeadbackController@store');
 
