@@ -113,8 +113,8 @@
                   :class="request.status_id==7 ?'bg-gradient-green': request.status_id == 8 ? 'bg-gradient-warning':'bg-info' "
                 >
                   {{request.request_date }}
-                  <br />
-                  {{request.request_date | moment("from","now")}}
+                  <!-- <br />
+                  {{request.request_time | moment("from","now")}} -->
                 </td>
                 <td
                   class="text-center"

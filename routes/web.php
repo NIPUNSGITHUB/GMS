@@ -87,6 +87,8 @@ Route::group(['middleware' => 'verified'], function () {
     //Payment History
     Route::post('/get/payment/details','PaymentController@getPaymentDetails');
 
+    //Feedback
+    Route::post('/get/customer/feedback','FeadbackController@index');
     
     
  

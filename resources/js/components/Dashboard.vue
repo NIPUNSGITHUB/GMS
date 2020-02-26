@@ -120,8 +120,8 @@
                       <th>Category</th>
                       <th>Address</th>
                       <th>Vehicle Type</th>
-                      <th>Date</th>
-                      <th>More</th>
+                      <!-- <th>Date</th>
+                      <th>More</th> -->
                     </tr>
                   </thead>
                   <tbody v-if="load_data == false">
@@ -142,12 +142,12 @@
                         </small>
                         {{todayRequest.type_code}}
                       </td>
-                      <td>{{todayRequest.request_date | moment("from","now")}}</td>
-                      <td>
+                      <!-- <td>{{todayRequest.request_date | moment("from","now")}}</td> -->
+                      <!-- <td>
                         <router-link to="/customer/request">
                           <i class="fas fa-search"></i>
                         </router-link>
-                      </td>
+                      </td> -->
                     </tr>
                   </tbody>
                   <tbody v-else-if="load_data == true">

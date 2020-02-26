@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feadback;
+use DB;
 use Illuminate\Http\Request;
 
 class FeadbackController extends Controller
@@ -12,9 +13,10 @@ class FeadbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $count = $request->rpp;
+        return DB::table('feedback')->select('*')->orderBy('id','DESC')->paginate($count);
     }
 
     /**

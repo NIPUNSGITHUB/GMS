@@ -21,7 +21,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">Admin</a>
           </div>
         </div>
 
@@ -67,6 +67,12 @@
                   <router-link to="/map/view" class="nav-link">
                     <i class="nav-icon fas fa-map"></i>
                     <p>Map View</p>
+                  </router-link>
+                </li> 
+                 <li class="nav-item">
+                  <router-link to="/all/feedback" class="nav-link">
+                    <i class="nav-icon fas fa-map"></i>
+                    <p>Feedback</p>
                   </router-link>
                 </li>
                 <li class="nav-item">
